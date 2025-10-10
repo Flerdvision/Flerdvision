@@ -107,7 +107,8 @@ img {
 /* Headlines and Paragraphs */
 h1,
 h2,
-h3 {
+h3,
+h4 {
     font-family: 'Jost', sans-serif;
     font-weight: 400;
     line-height: var(--line-height-small);
@@ -199,6 +200,11 @@ h3 {
     margin-bottom: var(--gutter-small);
 }
 
+h4 {
+    font-size: var(--font-size-normal);
+    margin-bottom: 0.5rem;
+}
+
 @media(max-width: 500px) {
     .heading-primary {
         font-size: var(--font-size-large);
@@ -210,6 +216,10 @@ h3 {
 
     h3 {
         font-size: var(--font-size-medium);
+    }
+
+    h4 {
+        font-size: var(--font-size-small);
     }
 }
 
@@ -453,7 +463,7 @@ body:not(.user-is-tabbing) a:focus {
     }
 }
 
-/* Buttons (Pfeil entfernen) */
+/* Buttons (Arrow entfernen) */
 .btn,
 .link__text {
     position: relative;
@@ -497,7 +507,7 @@ body:not(.user-is-tabbing) a:focus {
         font-size: var(--font-size-medium);
     }
 
-    p {
+    h4 {
         font-size: var(--font-size-small);
     }
 }
@@ -537,6 +547,51 @@ body:not(.user-is-tabbing) a:focus {
     cursor: pointer;
 }
 
+/* Services Section Styles */
+.services__boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.services__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1 1 calc(45% - 2rem);
+    margin-bottom: 4rem;
+    border: 1px solid var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background: #000;
+    color: var(--white);
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.services__box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.services__box h3 {
+    margin-bottom: 1rem;
+}
+
+.services__box p {
+    margin-bottom: 2rem;
+}
+
+@media(max-width: 768px) {
+    .services__box {
+        flex: 1 1 100%;
+    }
+}
+
 /* Work */
 .work__boxes {
     display: flex;
@@ -546,7 +601,6 @@ body:not(.user-is-tabbing) a:focus {
     overflow: hidden;
     margin-top: 4rem;
     padding-top: 6rem;
-    /* Fügen Sie zusätzlichen Abstand oben hinzu */
 }
 
 .work__box {
@@ -566,7 +620,29 @@ body:not(.user-is-tabbing) a:focus {
     box-sizing: border-box;
     overflow: hidden;
     margin-top: 2rem;
-    /* Fügen Sie zusätzlichen Abstand oben hinzu */
+}
+
+.work__box.full-width {
+    flex: 1 1 100%;
+}
+
+.work__boxes.side-by-side {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.work__boxes.side-by-side .work__box {
+    flex: 1 1 calc(50% - 2rem);
+    max-width: calc(50% - 2rem);
+}
+
+@media(max-width: 768px) {
+    .work__boxes.side-by-side .work__box {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
 }
 
 .work__box:hover {
@@ -574,23 +650,52 @@ body:not(.user-is-tabbing) a:focus {
     box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
 }
 
-.work__text {
+.work__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 1rem;
-    /* Verringern Sie den Abstand zwischen Überschrift und Text */
-    width: 100%;
 }
 
-.work__text h3 {
+.work__image {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.work__text {
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: var(--container-medium-width);
+    text-align: center;
+}
+
+.work__text.centered-text {
+    max-width: calc(var(--container-medium-width) * 0.75);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.work__text h3,
+.work__text h4 {
     margin-bottom: 0.5rem;
-    /* Verringern Sie den Abstand zwischen Überschrift und Text */
+}
+
+.work__video-box,
+.work__video-boxes {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 1rem;
 }
 
 .work__video-box {
     position: relative;
     width: 100%;
     padding-bottom: 56.25%;
-    overflow: hidden;
-    border-radius: 10px;
+    /* 16:9 aspect ratio for landscape videos */
 }
 
 .work__video-box iframe {
@@ -603,20 +708,60 @@ body:not(.user-is-tabbing) a:focus {
     border-radius: 10px;
 }
 
-.work__list {
-    list-style: none;
-    padding: 0;
+.work__video-boxes.side-by-side {
     display: flex;
-    justify-content: center;
+    flex-wrap: nowrap;
     gap: 1rem;
-    margin-bottom: 1rem;
+    width: 100%;
+    justify-content: center;
 }
 
-.work__list li {
-    background: var(--white);
-    color: #000;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
+.work__video-boxes.side-by-side .work__video-box {
+    flex: 0 0 calc(50% - 0.5rem);
+    max-width: calc(50% - 0.5rem);
+}
+
+@media(max-width: 768px) {
+    .work__video-boxes.side-by-side .work__video-box {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+.work__video-boxes.side-by-side.full-width {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.work__video-boxes.side-by-side.full-width .work__video-box {
+    flex: 0 0 calc(33.33% - 0.67rem);
+    max-width: calc(33.33% - 0.67rem);
+}
+
+@media(max-width: 768px) {
+    .work__video-boxes.side-by-side.full-width .work__video-box {
+        flex: 0 0 calc(50% - 0.5rem);
+        max-width: calc(50% - 0.5rem);
+    }
+}
+
+/* Subsection Title */
+.subsection-title {
+    font-size: var(--font-size-medium-1);
+    margin: var(--gutter-medium) 0 var(--gutter-small);
+    text-align: center;
+}
+
+/* Work Intro */
+.work__intro {
+    max-width: var(--container-medium-width);
+    margin: 0 auto var(--gutter-medium);
+    text-align: center;
+    font-size: var(--font-size-normal);
 }
 
 /* Media Queries for smaller screens */
@@ -626,16 +771,7 @@ body:not(.user-is-tabbing) a:focus {
     }
 }
 
-@media(max-width: 480px) {
-    .work__box {
-        flex: 1 1 100%;
-    }
-}
-
-/* --------------------------------------- */
-/* ----- Clients Feedback ----- */
-/* --------------------------------------- */
-
+/* Clients Feedback */
 .feedback {
     background: linear-gradient(135deg, #000 0%, #000 100%);
     color: var(--white);
@@ -659,7 +795,6 @@ body:not(.user-is-tabbing) a:focus {
     transition: transform 0.3s;
     color: var(--white);
     flex: 1 1 calc(33.333% - 2rem);
-    /* 3 Karten nebeneinander */
     min-width: 250px;
     margin-bottom: 2rem;
 }
@@ -684,16 +819,13 @@ body:not(.user-is-tabbing) a:focus {
 }
 
 .feedback__stars {
-    color: var(--yellow);
-    /* Färbe die Sterne gelb */
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
 
 .feedback__name {
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-normal);
     font-weight: bold;
-    margin-bottom: 1rem;
 }
 
 .feedback__body {
@@ -706,22 +838,18 @@ body:not(.user-is-tabbing) a:focus {
     font-weight: bold;
 }
 
-/* Responsive Anpassungen für mobile Ansicht */
 @media (max-width: 768px) {
     .feedback__card {
         width: 100%;
         max-width: none;
-        /* Maximale Breite für die Karten entfernen */
     }
 }
 
-/* Zentrierung der Karten, wenn nur 2 übrig sind */
 @media (max-width: 1024px) {
     .feedback__cards {
         justify-content: space-evenly;
     }
 }
-
 
 /* About Me */
 .about__content {
@@ -729,24 +857,18 @@ body:not(.user-is-tabbing) a:focus {
     justify-content: space-between;
     align-items: center;
     gap: 3rem;
-    /* Abstand zwischen Text und Bild */
     margin-top: var(--gutter-medium);
-    /* Abstand oben */
-
 }
 
 .about__text {
     flex: 1;
     max-width: 50%;
-    /* Textbereich bekommt 50% der Breite */
     padding-right: 2rem;
-    /* Etwas Abstand zwischen Text und Bild */
 }
 
 .about__photo-container {
     flex: 1;
     max-width: 50%;
-    /* Bild bekommt ebenfalls 50% der Breite */
     display: flex;
     justify-content: center;
 }
@@ -755,37 +877,28 @@ body:not(.user-is-tabbing) a:focus {
     width: 100%;
     height: auto;
     max-width: 800px;
-    /* Das Bild wird auf maximal 800px skaliert */
     border-radius: 10px;
 }
 
-/* Auf mobilen Geräten das Layout ändern */
 @media (max-width: 768px) {
     .about__content {
         flex-direction: column;
-        /* Das Bild unter den Text verschieben */
         text-align: center;
-        /* Text wird zentriert */
     }
 
     .about__text {
         max-width: 100%;
-        /* Der Textbereich nimmt 100% der Breite ein */
         margin-bottom: var(--gutter-medium);
-        /* Etwas Abstand unter dem Text */
     }
 
     .about__photo-container {
         max-width: 100%;
-        /* Bild nimmt auch 100% der Breite ein */
     }
 
     .about__photo {
         max-width: 90%;
-        /* Bild wird noch kleiner auf Handys */
     }
 }
-
 
 /* Contact */
 .contact__info {
@@ -839,18 +952,6 @@ body {
 }
 
 /* Hamburger Menu Styling */
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--gutter-normal) var(--gutter-medium);
-    width: 100%;
-    background: linear-gradient(135deg, #000 0%, #000 100%);
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-}
-
 .logo-item {
     display: flex;
     align-items: center;
