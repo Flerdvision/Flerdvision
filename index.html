@@ -1,438 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/png" href="./images/pb.png">
-  <title>Flerdvision</title>
-  <meta name="description"
-    content="I create attention-grabbing content, manage social media, and convert leads into paying customers.">
-  <meta name="keywords"
-    content="Flerdvision, Creative Solutions, Content Creation, Social Media Management, Lead Conversion">
-  <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <title>Goalkeeperpiet 1M Road</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+        #profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #name {
+            font-size: 26px;
+            color: #0f0f0f;
+            font-weight: 500;
+            margin-bottom: 50px;
+        }
+        .counter-wrapper {
+            font-size: 130px;
+            font-weight: bold;
+            color: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            height: 145px; 
+            line-height: 145px;
+            overflow: hidden;
+        }
+        .digit-container {
+            height: 145px;
+            position: relative;
+            width: 0.65em;
+        }
+        .digit-strip {
+            position: absolute;
+            width: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        .symbol {
+            width: 0.3em;
+        }
+        #subscribe-msg {
+            margin-top: 50px;
+            font-size: 40px;
+            color: #cc0000;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease;
+        }
+        .goal-reached {
+            color: #2ba640 !important; /* YouTube-Grün für Erfolg */
+        }
+    </style>
 </head>
-
 <body>
-  <header class="header" role="banner" id="top">
-    <div class="menu-frame">
-      <nav class="nav" role="navigation">
-        <!-- Logo -->
-        <div class="logo-item">
-          <img src="./images/pb.png" alt="Logo" class="menu-logo">
-        </div>
 
-        <!-- Hamburger Menu Icon -->
-        <div class="nav__hamburger" id="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+<div class="container">
+    <img id="profile-pic" src="png.jpeg" alt="Profilbild">
+    <div id="name">@Goalkeeperpiet</div>
+    <div class="counter-wrapper" id="counter"></div>
+    <div id="subscribe-msg">1,000,000 SUBS REVEAL!</div>
+</div>
 
-        <!-- Navigation Items -->
-        <ul class="nav__items">
-          <li class="nav__item"><a href="#services" class="nav__link">Services</a></li>
-          <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-          <li class="nav__item"><a href="#feedback" class="nav__link">Feedback</a></li>
-          <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-          <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="header__text-box row">
-      <div class="header__text">
-        <h1 class="heading-primary">
-          <span>Your Partner for Creative Solutions</span>
-        </h1>
-        <p>I create attention-grabbing content and manage social media to convert leads into paying customers.</p>
-        <a href="#contact" class="btn btn--pink">Get in touch</a>
-      </div>
-    </div>
-  </header>
+<script>
+    const counterContainer = document.getElementById('counter');
+    const msgEl = document.getElementById('subscribe-msg');
+    
+    let currentNumber = 999989;
+    const sequence = [999980, 999976, 999990, 999991, 999994, 999992, 999994, 999995, 999999, 1000000];
+    let seqIndex = 0;
 
-  <main role="main">
+    function formatWithCommas(n) {
+        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-      <div class="row">
-        <h2>My Services</h2>
-        <div class="services__boxes">
-          <div class="services__box">
-            <h3>Video Production</h3>
-            <p>I produce high-quality videos that capture your story and engage your audience, from concept to final
-              cut.</p>
-            <a href="#contact" class="btn btn--pink">Inquire Now</a>
-          </div>
-          <div class="services__box">
-            <h3>Editing</h3>
-            <p>I edit videos to polish footage, add effects, and create compelling narratives that drive results.</p>
-            <a href="#contact" class="btn btn--pink">Inquire Now</a>
-          </div>
-          <div class="services__box">
-            <h3>Design</h3>
-            <p>I create custom graphic designs for thumbnails, logos, and marketing materials that align with your
-              brand's vision.</p>
-            <a href="#contact" class="btn btn--pink">Inquire Now</a>
-          </div>
-          <div class="services__box">
-            <h3>Social Media Management</h3>
-            <p>I manage social channels strategically to grow your audience, boost engagement, and convert followers
-              into customers.</p>
-            <a href="#contact" class="btn btn--pink">Inquire Now</a>
-          </div>
-        </div>
-      </div>
-    </section>
+    function renderStructure(numStr) {
+        counterContainer.innerHTML = '';
+        [...numStr].forEach(char => {
+            if (char === ',') {
+                const div = document.createElement('div');
+                div.className = 'symbol';
+                div.innerText = ',';
+                counterContainer.appendChild(div);
+            } else {
+                const container = document.createElement('div');
+                container.className = 'digit-container';
+                const strip = document.createElement('div');
+                strip.className = 'digit-strip';
+                for(let i=0; i<=9; i++) {
+                    const d = document.createElement('div');
+                    d.innerText = i;
+                    strip.appendChild(d);
+                }
+                container.appendChild(strip);
+                counterContainer.appendChild(container);
+            }
+        });
+    }
 
-    <!-- Work Section -->
-    <section class="work" id="work">
-      <div class="row">
-        <h2>My Work</h2>
+    function updateDisplay(num) {
+        const valStr = formatWithCommas(num);
+        // Falls sich die Anzahl der Stellen ändert (von 999,999 auf 1,000,000)
+        if (counterContainer.querySelectorAll('.digit-container').length !== valStr.replace(/,/g, '').length) {
+            renderStructure(valStr);
+        }
 
-        <!-- Editing / Videography Subsection -->
-        <h3 class="subsection-title">Editing / Videography</h3>
-        <div class="work__boxes side-by-side">
-          <!-- ModernGoalkeeping -->
-          <div class="work__box">
-            <div class="work__header">
-              <img src="./images/M.jpg" alt="ModernGoalkeeping" class="work__image">
-            </div>
-            <h4>ModernGoalkeeping</h4>
-            <div class="work__text">
-              <p>
-                I produce and edit videos for ModernGoalkeeping, a platform showcasing goalkeeper training and
-                challenges. My work highlights elite skills, growing viewership and community engagement.
-              </p>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/w_HzxEsQwR8?start=1259"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/d2D2aCBsOLo" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/wr1zgQe6R_Y" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
+        const strips = document.querySelectorAll('.digit-strip');
+        const digits = [...valStr].filter(c => c !== ',');
+        digits.forEach((d, i) => {
+            const offset = -parseInt(d) * 145; 
+            strips[i].style.transform = `translateY(${offset}px)`;
+        });
+    }
 
-          <!-- Skillers Academy -->
-          <div class="work__box">
-            <div class="work__header">
-              <img src="./images/s.png" alt="Skillers Academy" class="work__image">
-            </div>
-            <h4>Skillers Academy</h4>
-            <div class="work__text">
-              <p>
-                I create and edit content for SkillersTV, a channel focused on football talent hunts and competitive
-                battles. My videos amplify player stories, boosting event participation and audience connection.
-              </p>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/YsHE0upe8dI?start=92" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/pWmnuIv96rY" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/u3vPVwTXx0E" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
+    // Initialisierung
+    renderStructure("999,989");
+    updateDisplay(currentNumber);
 
-        <!-- Diyar Ac -->
-        <div class="work__box full-width">
-          <div class="work__header">
-            <img src="./images/d.png" alt="Diyar Ac" class="work__image">
-            <h4>Diyar Ac</h4>
-          </div>
-          <div class="work__text centered-text">
-            <p>
-              I produce and edit content for Diyar Ac’s channel, a platform showcasing football challenges and talent
-              identification. My work enhances the channel’s appeal, driving viewer engagement and interaction.
-            </p>
-          </div>
-          <div class="work__video-boxes side-by-side">
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/6TxcTdaTQKQ" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/0U-SG2z6qpY?t=131s" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
+    // Ablaufsteuerung
+    const runSequence = setInterval(() => {
+        if (seqIndex < sequence.length) {
+            currentNumber = sequence[seqIndex];
+            updateDisplay(currentNumber);
+            
+            // Wenn 1 Million erreicht ist
+            if (currentNumber === 1000000) {
+                clearInterval(runSequence);
+                celebrate();
+                startSlowCounting();
+            }
+            seqIndex++;
+        }
+    }, 2000);
 
-        <!-- Social Media Management Subsection -->
-        <h3 class="subsection-title">Social Media Management</h3>
-        <div class="work__intro">
-          <p>I develop tailored social media strategies to meet unique goals, focusing on long-term collaboration to
-            build sustainable growth, authentic engagement, and lasting audience loyalty.</p>
-        </div>
-        <div class="work__boxes side-by-side">
-          <!-- GoalkeeperPiet -->
-          <div class="work__box">
-            <div class="work__header">
-              <img src="./images/p.png" alt="GoalkeeperPiet" class="work__image">
-            </div>
-            <h4>GoalkeeperPiet</h4>
-            <div class="work__text">
-              <p>
-                I manage social media for GoalkeeperPiet, a platform dedicated to goalkeeper training and community. My
-                strategies with engaging content grow sponsorship opportunities and community interaction.
-              </p>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/SLP0rx-uB7M?start=19" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/0-1XSuuAbuo?start=213" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/kvoqa9D7o2w" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
+    function celebrate() {
+        msgEl.style.opacity = "1";
+        msgEl.style.transform = "scale(1.1)";
+        document.querySelector('.counter-wrapper').classList.add('goal-reached');
+        msgEl.innerText = "THANK YOU FOR 1 MILLION!";
+    }
 
-          <!-- Fitgroup Nutrition -->
-          <div class="work__box">
-            <div class="work__header">
-              <img src="./images/FGN.png" alt="Fitgroup Nutrition" class="work__image">
-            </div>
-            <h4>Fitgroup Nutrition</h4>
-            <div class="work__text">
-              <p>
-                I manage social media for Fitgroup Nutrition, a supplement brand tied to endurance challenges. My
-                content supports their brand launch, expanding reach and driving sales conversions.
-              </p>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/hVH4sCeMCjg?start=2" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/uPO-6wsQ-GM?start=1" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/RKUgsTBD5HM" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
+    // Langsam weiterzählen nach der Million
+    function startSlowCounting() {
+        setInterval(() => {
+            currentNumber += Math.floor(Math.random() * 2) + 1; // 1-2 Abos dazu
+            updateDisplay(currentNumber);
+        }, 5000); // Alle 5 Sekunden ein neues Abo
+    }
+</script>
 
-        <!-- Gripmode GmbH -->
-        <div class="work__box full-width">
-          <div class="work__header">
-            <img src="./images/G.png" alt="Gripmode GmbH" class="work__image">
-            <h4>Gripmode GmbH</h4>
-          </div>
-          <div class="work__text centered-text">
-            <p>
-              I manage social media for Gripmode GmbH, a brand focused on sports performance gear. My dynamic content
-              strategies enhance visibility and grow their follower base.
-            </p>
-          </div>
-          <div class="work__video-boxes side-by-side full-width">
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/QO6oNX5gDWk" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/x5RORVIWEPk" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            <div class="work__video-box">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/7YxRY5S4zeM" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Feedback Section -->
-    <section class="feedback" id="feedback">
-      <div class="row">
-        <h2>Clients Feedback</h2>
-        <div class="feedback__cards">
-          <div class="feedback__card">
-            <div class="feedback__header">
-              <img src="./images/G.png" alt="Gripmode GmbH" class="feedback__image">
-            </div>
-            <h4 class="feedback__name">Gripmode GmbH</h4>
-            <div class="feedback__stars">
-              ★★★★★
-            </div>
-            <div class="feedback__body">
-              <p>"With tailored strategies, we achieved significant growth in revenue and customer retention. The
-                collaboration surpassed our expectations and delivered great results."</p>
-            </div>
-            <div class="feedback__footer">
-              <p>Sales Boost, Improved Customer Retention</p>
-            </div>
-          </div>
-          <div class="feedback__card">
-            <div class="feedback__header">
-              <img src="./images/M.jpg" alt="ModernGoalkeeping" class="feedback__image">
-            </div>
-            <h4 class="feedback__name">ModernGoalkeeping</h4>
-            <div class="feedback__stars">
-              ★★★★★
-            </div>
-            <div class="feedback__body">
-              <p>"Thanks to the innovative strategies, we saw a huge increase in views and revenue growth. Our
-                subscriber count also increased significantly, far exceeding our goals."</p>
-            </div>
-            <div class="feedback__footer">
-              <p>55% Revenue Growth, 23% Subscriber Increase</p>
-            </div>
-          </div>
-          <div class="feedback__card">
-            <div class="feedback__header">
-              <img src="./images/s.png" alt="Skillers.Academy" class="feedback__image">
-            </div>
-            <h4 class="feedback__name">Skillers.Academy</h4>
-            <div class="feedback__stars">
-              ★★★★★
-            </div>
-            <div class="feedback__body">
-              <p>"The content we created significantly boosted our brand visibility, increased event attendance, and
-                sparked greater customer engagement and interest."</p>
-            </div>
-            <div class="feedback__footer">
-              <p>Enhanced Visibility, Full Event Attendance</p>
-            </div>
-          </div>
-          <div class="feedback__card">
-            <div class="feedback__header">
-              <img src="./images/d.png" alt="Diyar Ac" class="feedback__image">
-            </div>
-            <h4 class="feedback__name">Diyar Ac</h4>
-            <div class="feedback__stars">
-              ★★★★★
-            </div>
-            <div class="feedback__body">
-              <p>"Working with him has been a game-changer. His strategies boosted our engagement and led to a
-                noticeable increase in our community interaction and online presence."</p>
-            </div>
-            <div class="feedback__footer">
-              <p>Increased Engagement, Enhanced Online Presence</p>
-            </div>
-          </div>
-          <div class="feedback__card">
-            <div class="feedback__header">
-              <img src="./images/p.png" alt="GoalkeeperPiet" class="feedback__image">
-            </div>
-            <h4 class="feedback__name">GoalkeeperPiet</h4>
-            <div class="feedback__stars">
-              ★★★★★
-            </div>
-            <div class="feedback__body">
-              <p>"The strategic content we created led to a significant increase in engagement and views. The
-                collaboration has been a key factor in growing our online presence."</p>
-            </div>
-            <div class="feedback__footer">
-              <p>120% More Views, 50% More Engagement</p>
-            </div>
-          </div>
-          <div class="feedback__card">
-            <div class="feedback__header">
-              <img src="./images/FGN.png" alt="Fitgroup Nutrition" class="feedback__image">
-            </div>
-            <h4 class="feedback__name">Fitgroup Nutrition</h4>
-            <div class="feedback__stars">
-              ★★★★★
-            </div>
-            <div class="feedback__body">
-              <p>"His videography and editing were key to successfully marketing our supplement brand launch, driving
-                engagement and expanding our reach to a global audience."</p>
-            </div>
-            <div class="feedback__footer">
-              <p>Successful Brand Launch, Global Audience Growth</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-      <div class="row">
-        <h2>About Me</h2>
-        <div class="about__content">
-          <div class="about__text">
-            <p>
-              I’m Fabian Erdkönig, the creative mind behind Flerdvision. As a passionate videographer, editor, designer,
-              and social media manager, I specialize in crafting visuals and strategies that tell compelling stories and
-              grow audiences. With a focus on quality and creativity, I bring every project to life, whether it’s video
-              editing, design, content creation, or social media management. Let’s create something extraordinary
-              together! Based in Austria, I speak both German and English.
-            </p>
-            <a href="#contact" class="btn btn--pink">Get in touch</a>
-          </div>
-          <div class="about__photo-container">
-            <img class="about__photo" src="./images/fabian.jpg" alt="Fabian Erdkönig">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-      <div class="row">
-        <h2>Get in Touch</h2>
-        <div class="contact__info">
-          <p>
-            If you are looking for high-quality video production, editing, design, or social media management services
-            to bring your vision to life, feel free to reach out. I am here to help turn your ideas into compelling
-            stories and growth strategies. The quickest way to get in touch is via email.
-          </p>
-          <a href="mailto:info@flerdvision.com" class="btn">info@flerdvision.com</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="row">
-      <p>&copy; 2025 Fabian Erdkönig. All rights reserved. |
-        <a href="legal.html"> Legal Information</a>
-      </p>
-    </div>
-  </footer>
-
-  <a href="#top" class="back-to-top" title="Back to Top">
-    <img src="./images/arrow-up.svg" alt="Back to Top" class="back-to-top__image">
-  </a>
-  <script src="./index.js"></script>
 </body>
-
 </html>
